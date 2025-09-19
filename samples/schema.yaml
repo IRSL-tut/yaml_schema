@@ -1,0 +1,32 @@
+$schema: http://json-schema.org/schema#
+type: object
+properties:
+  Persons:
+    type: array
+    items:
+      type: object
+      properties:
+        address:
+          type: object
+          properties:
+            city:
+              type: string
+            lines:
+              type: array
+              items:
+                type: string
+            zip:
+              type: string
+          required:
+          - city
+          - zip
+        age:
+          type: integer
+        name:
+          type: string
+      required:
+      - address
+      - age
+      - name
+required:
+- Persons

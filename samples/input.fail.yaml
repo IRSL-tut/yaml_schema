@@ -1,0 +1,29 @@
+Persons:
+  -
+    name: "Hoge Moge"
+    age: 30
+    address:
+      zip: "441-8580"
+      city: "Toyohashi"
+      lines:
+        - "1-1 dokoka"
+  -
+    name: "Foo Bar"
+    age: 40
+    address:
+      zip: "0000"
+      city: "Toyokawa"
+      lines:
+        - "4-4 dokoka"
+  -
+    name: "CCCC"
+    age: 40
+  -
+    name: "DDDD"
+    address:
+      city: "SomeWhere"
+  -
+    age: 20
+    address:
+      lines:
+        - "aaaa"
