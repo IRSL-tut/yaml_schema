@@ -1,5 +1,7 @@
 #!/bin/bash
 
-DOCKER_IMAGE=irslrepo_local/yaml_schema:latest
+#REPO=irslrepo_local/
+REPO=repo.irsl.eiiris.tut.ac.jp/
+DOCKER_IMAGE=${REPO}irslrepo_local/yaml_schema:latest
 
 docker build . --no-cache -f Dockerfile -t ${DOCKER_IMAGE}
