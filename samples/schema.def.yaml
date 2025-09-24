@@ -1,0 +1,28 @@
+$schema: http://json-schema.org/schema#
+type: object
+properties:
+  Persons:
+    type: array
+    items: { $ref: "#/$defs/Person" }
+required:
+- Persons
+#### class definitions ####
+$defs:
+  address:
+    type: object
+    description: "Class address"
+    properties:
+      zip: { type: string }
+      city: { type: string }
+      lines:
+        type: array
+        items: { type: string }
+    required: [zip, city]
+  Person:
+    type: object
+    description: "Class Person"
+    properties:
+      age:  { type: integer }
+      name: { type: string } 
+      address: { $ref: "#/$defs/address" }
+    required: [age, name, address ]
