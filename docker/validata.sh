@@ -1,8 +1,10 @@
 #!/bin/bash
 
+export MSYS_NO_PATHCONV=1 ## docker-desktop on gitbash
+
 #REPO=irslrepo_local/
 REPO=repo.irsl.eiiris.tut.ac.jp/
-DOCKER_IMAGE=${REPO}irslrepo_local/yaml_schema:latest
+DOCKER_IMAGE=${REPO}yaml_schema:latest
 
 SCHEMA=$1
 INFILE=$2
@@ -17,6 +19,6 @@ if [ ! -e "${INFILE}" ]; then
     exit 1
 fi
 
-docker run -v $(realpath $INFILE):/tmp/infile -v $(realpath $SCHEMA):/tmp/schema \
+docker run --rm -v $(realpath $INFILE):/tmp/infile -v $(realpath $SCHEMA):/tmp/schema \
        ${DOCKER_IMAGE} \
        node /yaml_schema/yaml_validation.js -s /tmp/schema -i /tmp/infile

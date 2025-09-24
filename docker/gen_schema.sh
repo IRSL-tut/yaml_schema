@@ -1,8 +1,10 @@
 #!/bin/bash
 
+export MSYS_NO_PATHCONV=1 ## docker-desktop on gitbash
+
 #REPO=irslrepo_local/
 REPO=repo.irsl.eiiris.tut.ac.jp/
-DOCKER_IMAGE=${REPO}irslrepo_local/yaml_schema:latest
+DOCKER_IMAGE=${REPO}yaml_schema:latest
 
 INFILE=$1
 # OUTFILE=${2:-"/tmp/schema.yaml"}
@@ -19,6 +21,6 @@ fi
 #     touch ${OUTFILE}
 # fi
 
-docker run -v $(realpath $INFILE):/tmp/infile \
+docker run --rm -v $(realpath $INFILE):/tmp/infile \
        ${DOCKER_IMAGE} \
        python3 /yaml_schema/generate_json_schema_for_yaml.py ${DUMP_JSON} -i /tmp/infile
