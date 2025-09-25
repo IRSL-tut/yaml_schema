@@ -1,0 +1,40 @@
+$schema: http://json-schema.org/schema#
+type: object
+properties:
+  instances:
+    type: array
+    items: { $ref: "#/$defs/aclass" }
+required:
+- instances
+additionalProperties: false
+#### class definitions ####
+$defs:
+  aclass:
+    type: object
+    description: "last class"
+    allOf:
+      - { properties: { prop: {type: string} } }
+      - { $ref: "#/$defs/sub_a" }
+      - { $ref: "#/$defs/sub_b" }
+    unevaluatedProperties: false
+    required: [ prop ]
+  base:
+    type: object
+    description: "base class"
+    properties:
+      item_base: { type: string }
+    required: [ item_base ]
+  sub_a:
+    type: object
+    description: "sub class(a)"
+    $ref: "#/$defs/base"
+    properties:
+      item_a: { type: string }
+    required: [ item_a ]
+  sub_b:
+    type: object
+    description: "sub class(b)"
+    $ref: "#/$defs/base"
+    properties:
+      item_b: { type: string }
+    required: [ item_b ]

@@ -1,0 +1,23 @@
+instances:
+  -
+    # success
+    prop: "p"
+    item_base: "base0"
+    item_a: "a0"
+    item_b: "b0"
+  -
+    # require: prop
+    item_base: "base1"
+    item_a: "a1"
+    item_b: "b1"
+  -
+    # additional: item
+    prop: "moge"
+    item_base: "base1"
+    item_a: "a1"
+    item_b: "b1"    
+    item: "base1"
+  -
+    # require: prop, item_base, item_a, item_b
+    # additional: moge
+    moge: "m"
