@@ -3,7 +3,9 @@
 import fs from 'fs'
 import yaml from 'js-yaml'
 import { Command } from 'commander'
-import Ajv from 'ajv'
+//import Ajv from 'ajv'
+import Ajv2019 from 'ajv/dist/2019.js'
+//import Ajv2020 from 'ajv/dist/2020.js'
 import AjvErrors from 'ajv-errors'
 
 const program = new Command();
@@ -27,9 +29,9 @@ const program = new Command();
   console.log(schema);
   console.log(input);
 
-  //const ajv = new Ajv({allErrors: true, jsonPointers: true})
-  //const ajv = new Ajv({allErrors: true, jsPropertySyntax: true})
-  const ajv = new Ajv({allErrors: true, verbose: true});
+  //const ajv = new Ajv({allErrors: true, verbose: true});
+  const ajv = new Ajv2019({allErrors: true, verbose: true});
+  //const ajv = new Ajv2020({allErrors: true, verbose: true});
   AjvErrors(ajv);
 
   try {
