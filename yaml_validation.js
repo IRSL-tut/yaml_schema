@@ -12,9 +12,13 @@ const program = new Command();
   program.version('0.0.0')
     .requiredOption('-s, --schema <schemaPath>', 'schema YAML file path')
     .requiredOption('-i, --input  <inputPath>', 'input YAML file path')
+    .option('-v, --verbose', 'verbose');
+
   program.parse();
   console.log('schema: ' + program.opts()['schema']);
   console.log('input: ' + program.opts()['input']);
+  console.log('verbose: ' + program.opts()['verbose']);
+  const verbose = program.opts()['verbose'];
   const schemaFile = fs.readFileSync(program.opts()['schema'], 'utf8')
   const inputFile = fs.readFileSync(program.opts()['input'], 'utf8')
   const schema = yaml.load(schemaFile)
@@ -25,14 +29,32 @@ const program = new Command();
 
   //const ajv = new Ajv({allErrors: true, jsonPointers: true})
   //const ajv = new Ajv({allErrors: true, jsPropertySyntax: true})
-  const ajv = new Ajv({allErrors: true, verbose: true})
-  AjvErrors(ajv)
+  const ajv = new Ajv({allErrors: true, verbose: true});
+  AjvErrors(ajv);
 
-  const passed = await ajv.validate(schema, input)
+  try {
+    const validator = ajv.compile(schema);
 
-  console.log(ajv.errorsText(ajv.errors, {
-    separator: '\n'
-  }))
-
-  process.exit(passed ? 0 : 1)
+    const validate_passed = validator(input);
+    if (verbose) {
+      console.log(JSON.stringify(validator.errors, null, "  "));
+    } else {
+      console.log(ajv.errorsText(validator.errors, {
+        separator: '\n'
+      }));
+    }
+    process.exit(validate_passed ? 0 : 1);
+  } catch (e) {
+    // invalid schema
+    console.log('### Invalid schema ###');
+    if (verbose) {
+      console.log(e);
+      console.log(JSON.stringify(ajv.errors, null, "  "));
+    } else {
+      console.log(ajv.errorsText(ajv.errors, {
+        separator: '\n'
+      }));
+    }
+    process.exit(1);
+  }
 })()
