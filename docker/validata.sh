@@ -6,6 +6,12 @@ export MSYS_NO_PATHCONV=1 ## docker-desktop on gitbash
 REPO=repo.irsl.eiiris.tut.ac.jp/
 DOCKER_IMAGE=${REPO}yaml_schema:latest
 
+_VERBOSE_=""
+if [ "$1" == "--verbose" ]; then
+    _VERBOSE_="--verbose"
+    shift
+fi
+
 SCHEMA=$1
 INFILE=$2
 
@@ -21,4 +27,4 @@ fi
 
 docker run --rm -v $(realpath $INFILE):/tmp/infile -v $(realpath $SCHEMA):/tmp/schema \
        ${DOCKER_IMAGE} \
-       node /yaml_schema/yaml_validation.js -s /tmp/schema -i /tmp/infile
+       node /yaml_schema/yaml_validation.js ${_VERBOSE_} -s /tmp/schema -i /tmp/infile
