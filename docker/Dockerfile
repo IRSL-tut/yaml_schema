@@ -16,6 +16,8 @@ RUN apt-get update -q -qq && \
     python3 -m pip install --break-system-packages PyYAML genson && \
     rm -rf /var/lib/apt/lists/*
 
+RUN npm install -g quicktype
+
 WORKDIR /
 RUN git clone https://github.com/IRSL-tut/yaml_schema.git
 
