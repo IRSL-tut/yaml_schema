@@ -12,8 +12,12 @@ RUN if [ ! -e /etc/timezone ]; then \
 # install packages
 RUN apt-get update -q -qq && \
     apt-get install -q -y --no-install-recommends \
-    python3 python3-pip nodejs npm git && \
+    python3 python3-pip nodejs npm git curl wget && \
     python3 -m pip install --break-system-packages PyYAML genson && \
+    npm install n -g && \
+    n stable && \
+    apt purge -q -qq -y nodejs npm && \
+    apt autoremove -q -qq -y && \
     rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g quicktype
