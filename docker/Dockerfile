@@ -19,6 +19,11 @@ RUN apt-get update -q -qq && \
     apt purge -q -qq -y nodejs npm && \
     apt autoremove -q -qq -y && \
     rm -rf /var/lib/apt/lists/*
+#
+#RUN apt-get update -q -qq && \
+#    apt-get install -q -y --no-install-recommends \
+#    nlohmann-json3-dev libyaml-cpp-dev cmake gcc g++ && \
+#    rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g quicktype
 
